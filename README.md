@@ -30,3 +30,7 @@ flowc
 	--build.sh
 	--Makefile
 	--README.md
+
+2) 2013-05-11
+usage define:
+	flowc --in {ether_name|self_gen} --filter filters --dest {dest_list} 
