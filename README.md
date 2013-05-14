@@ -34,3 +34,26 @@ flowc
 2) 2013-05-11
 usage define:
 	flowc --in {ether_name|self_gen} --filter filters --dest {dest_list} 
+
+3) 2013-05-14
+	usage updated: flowc --in {ether_name|self_construct} --filter filters --dest {dest_list} --send-limit {sender_num,wait interval} --write {file_name,file_type,split_interval}
+examples:
+	1. flowc --in eth0 --filter tcp dst port 80 --dest 00AABB050401 00AABB050402 --send-limit 1,0
+		capture packets on device eth0, select those tcp packets with dest port 80,
+send them to these machines of device address 00AABB050401 and 00AABB050402 with none wait by only one sender.
+	2. flowc --in eth0 --filter tcp dst port 80 --dest 10.0.2.112_tcp_5555 10.0.2.114_udp_8888 --send-limit 1,0
+		the difference between example 1 is that the dest appears as tuple (ip,ttype,port) list.
+	3. flowc --in eth0 --filter tcp dst port 80 --dest 00AABB050401 10.0.2.112_tcp_5555
+		as you can see, this example is the combination of example 1 and 2.
+	4. flowc --in eth0 --filter tcp dst port 80 --write test,pcap,0
+		store packets to file test_[year_mon_mday_hour_min].pcap and do not split the file into small files diffed by time interval. if the interval is not 0, like 5, then the file will be split to test_20130514_1543.pcap and test_20130514_1548.pcap and so on, until you stop it.
+
+program modules arrangement:
+	[preprocessor and pre-init] ----> [packet construct or capture] --> [sender]
+			|								|								|
+			|								|-----> [logger] <--------------|
+			|											^
+			|---[local store]---------------------------|
+
+a question to be discussed:
+	how to determine and control the send rate of this program when it's used for performance test of some other server?
