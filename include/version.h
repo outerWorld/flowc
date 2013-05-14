@@ -1,8 +1,9 @@
 /*
- * @note Use doxygen to generate manual.
- * @file version.h
- * @author huang chunping
- * @date 2013-05-10
+ * @note: Use doxygen to generate manual.
+ * @file: version.h
+ * @encode: utf-8
+ * @author: huang chunping
+ * @date: 2013-05-10
  */
 
 #ifndef __VERSION_H
