@@ -9,5 +9,6 @@
 #ifndef __VERSION_H
 #define __VERSION_H
 
+char * get_cur_version();
 
 #endif // __VERSION_H

@@ -1,20 +1,29 @@
 CC = gcc
-INC = -I./
+INC = -I./include -Ilib/include
 LIB =
 BIN = flowc
-LFLAGS = 
-CFLAGS =
-OBJS=main.o
+LFLAGS = -Llib -lsos
+CFLAGS = -g ${INC}
+
+include src/Makefile.am
+SRCS=$(__SRC_C)
+OBJS = $(__SRC_C:.c=.o)
 
 flowc:${OBJS}
 	${CC} -o $@ $^ ${LFLAGS}
 
-%.o:src/%.c
+$(OBJS):src/$(SRCS)
 	${CC} -c $< ${CFLAGS}
 
-.PHONY:all clean
+gen_lib:
+	cd ./lib && make -f Makefile clean all || cd ..
 
-all:${BIN}
+test:
+	cd ./test && make -f Makefile clean all || cd ..
+
+.PHONY:gen_lib all test clean
+
+all:gen_lib ${BIN}
 
 clean:
 	rm -f *.o

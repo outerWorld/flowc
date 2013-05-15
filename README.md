@@ -57,3 +57,13 @@ program modules arrangement:
 
 a question to be discussed:
 	how to determine and control the send rate of this program when it's used for performance test of some other server?
+
+4) 2013-05-15
+program modules arrangement updated:
+	[packet capture]---->[packet queue]------------\
+	  |						      /	                -->[scheduler {amplifier}]-------->[packet queue]---->[packet sender0]
+	  \      [packet generator]---                    	 /  \                 \-------->[packet queue]---->[packet sender1]
+	   \	       \									/	 \------->[packet queue]---->[storage]			   /
+		\			\								   /								    /				  /
+		 ----------------------->[logger] <-------------------------------------------------------------------
+
